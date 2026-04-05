@@ -308,6 +308,8 @@ namespace PJKT.SDK2
                 foreach (var textureID in textureIDs)
                 {
                     Texture texture = material.GetTexture(textureID);
+                    if (texture is RenderTexture) continue;
+                    
                     string path = AssetDatabase.GetAssetPath(texture);
                     if (path == null || path.Contains(".asset")) continue;
                     
@@ -348,7 +350,7 @@ namespace PJKT.SDK2
                         textureInfos.Add(defaultResourceInfo);
                         continue;
                     }
-
+                    
                     TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
                     TextureImporterPlatformSettings platformSettings = importer.GetPlatformTextureSettings(buildTarget);
                     TextureImporterFormat format = platformSettings.format;
